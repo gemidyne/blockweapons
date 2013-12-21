@@ -1,4 +1,0 @@
-BlockWeapons
-============
-
-Blocks weapons. Duh.
