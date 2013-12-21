@@ -68,7 +68,7 @@ public Action:Timer_WeaponCheck(Handle:timer, any:client)
 				if (Weapon_IsBlocked(client, 1))
 				{
 					// If blocked, remove weapon slot (Secondary) and give Pistol instead.
-					TF2_RemoveWeaponSlot(client, 0);
+					TF2_RemoveWeaponSlot(client, 1);
 					TF2Items_GiveWeapon(client, 22);
 				}
 			}
