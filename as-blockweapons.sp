@@ -34,32 +34,38 @@ public OnMapStart()
 	
 	if (strncmp("vsh_", curMapName, 4, false) == 0 || strncmp("arena_", curMapName, 6, false) == 0)
 	{
-		SetConVarInt(g_PluginActive, 1);
+		SetConVarBool(g_PluginActive, true);
 	}
 	else
 	{
-		SetConVarInt(g_PluginActive, 0);
+		SetConVarBool(g_PluginActive, false);
 	}
 }
 
 public Event_PlayerSpawn(Handle:event,const String:name[],bool:dontBroadcast)
 {
-	new client = GetClientOfUserId(GetEventInt(event, "userid"));
-
-	if (IsClientInGame(client) && !IsFakeClient(client))
+	if (GetConVarBool(g_PluginActive))
 	{
-		// Need a timer here because if we do it too early, our changes won't take effect
-		CreateTimer(0.1, Timer_WeaponCheck, client);
+		new client = GetClientOfUserId(GetEventInt(event, "userid"));
+
+		if (IsClientInGame(client) && !IsFakeClient(client))
+		{
+			// Need a timer here because if we do it too early, our changes won't take effect
+			CreateTimer(0.1, Timer_WeaponCheck, client);
+		}
 	}
 }
 
 public Event_PlayerRegenerated(Handle:event, const String:name[], bool:dontBroadcast)
 {
-	new client = GetClientOfUserId(GetEventInt(event, "userid"));
-
-	if (IsClientInGame(client) && !IsFakeClient(client))
+	if (GetConVarBool(g_PluginActive))
 	{
-		CreateTimer(0.1, Timer_WeaponCheck, client);
+		new client = GetClientOfUserId(GetEventInt(event, "userid"));
+
+		if (IsClientInGame(client) && !IsFakeClient(client))
+		{
+			CreateTimer(0.1, Timer_WeaponCheck, client);
+		}
 	}
 }
 
