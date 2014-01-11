@@ -9,19 +9,37 @@
 #define AUTOLOAD_EXTENSIONS
 #define REQUIRE_EXTENSIONS
 
+new Handle:g_PluginActive = INVALID_HANDLE;
+
 public Plugin:myinfo = 
 {
 	name = "Block Weapons",
-	author = "Anarchy Steven",
+	author = "Anarchy Steven, Mario6493",
 	description = "Blocks weapons. Duh.",
-	version = "1.0",
+	version = "1.1",
 	url = "www.steveh.org.uk"
 }
 
 public OnPluginStart()
 {
+	g_PluginActive = CreateConVar("tf_blockweapons_enabled", "1", "Is the weapon blocker enabled?", 0, true, 0.0, true, 1.0);
 	HookEvent("player_spawn", Event_PlayerSpawn);
 	HookEvent("post_inventory_application", Event_PlayerRegenerated, EventHookMode_Post);
+}
+
+public OnMapStart()
+{
+	decl String:curMapName[64];
+	GetCurrentMap(curMapName, sizeof(curMapName));
+	
+	if (strncmp("vsh_", curMapName, 4, false) == 0 || strncmp("arena_", curMapName, 6, false) == 0)
+	{
+		SetConVarInt(g_PluginActive, 1);
+	}
+	else
+	{
+		SetConVarInt(g_PluginActive, 0);
+	}
 }
 
 public Event_PlayerSpawn(Handle:event,const String:name[],bool:dontBroadcast)
