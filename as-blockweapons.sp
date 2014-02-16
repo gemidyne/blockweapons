@@ -75,12 +75,11 @@ public Action:Timer_WeaponCheck(Handle:timer, any:client)
 	{
 		new TFClassType:playerClass = TF2_GetPlayerClass(client);
 		
-		
-		if (strncmp("vsh_", curMapName, 4, false) == 0 || strncmp("arena_", curMapName, 6, false) == 0)
+		switch (playerClass)
 		{
-			switch (playerClass)
+			case TFClass_Scout: 
 			{
-				case TFClass_Scout: 
+				if (strncmp("vsh_", curMapName, 4, false) == 0 || strncmp("arena_", curMapName, 6, false) == 0)
 				{
 					if (Weapon_IsBlocked(client, 0))
 					{
@@ -90,8 +89,10 @@ public Action:Timer_WeaponCheck(Handle:timer, any:client)
 						PrintToChat(client, "The Baby Face's Blaster is disabled in this gamemode.");
 					}
 				}
-
-				case TFClass_Engineer:
+			}
+			case TFClass_Engineer:
+			{
+				if (strncmp("vsh_", curMapName, 4, false) == 0 || strncmp("arena_", curMapName, 6, false) == 0)
 				{
 					if (Weapon_IsBlocked(client, 1))
 					{
@@ -102,12 +103,9 @@ public Action:Timer_WeaponCheck(Handle:timer, any:client)
 					}
 				}
 			}
-		}
-		else if (strncmp("zf_", curMapName, 3, false) == 0)
-		{
-			switch (playerClass)
+			case TFClass_Soldier: 
 			{
-				case TFClass_Soldier: 
+				if (strncmp("zf_", curMapName, 3, false) == 0)
 				{
 					if (Weapon_IsBlocked(client, 0))
 					{
@@ -124,8 +122,10 @@ public Action:Timer_WeaponCheck(Handle:timer, any:client)
 						PrintToChat(client, "The Half-Zatoichi is disabled in this gamemode.");
 					}
 				}
-
-				case TFClass_Demoman:
+			}
+			case TFClass_DemoMan:
+			{
+				if (strncmp("zf_", curMapName, 3, false) == 0)
 				{
 					if (Weapon_IsBlocked(client, 2))
 					{
@@ -135,7 +135,7 @@ public Action:Timer_WeaponCheck(Handle:timer, any:client)
 						PrintToChat(client, "The Half-Zatoichi is disabled in this gamemode.");
 					}
 				}
-			}
+			}		
 		}
 		
 	}
