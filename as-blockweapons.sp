@@ -10,6 +10,7 @@
 #define REQUIRE_EXTENSIONS
 
 new Handle:g_PluginActive = INVALID_HANDLE;
+new String:curMapName[64];
 
 public Plugin:myinfo = 
 {
@@ -29,7 +30,6 @@ public OnPluginStart()
 
 public OnMapStart()
 {
-	decl String:curMapName[64];
 	GetCurrentMap(curMapName, sizeof(curMapName));
 	
 	if (strncmp("vsh_", curMapName, 4, false) == 0 || strncmp("arena_", curMapName, 6, false) == 0 || strncmp("zf_", curMapName, 3, false) == 0)
