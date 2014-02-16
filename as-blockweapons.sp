@@ -32,7 +32,7 @@ public OnMapStart()
 	decl String:curMapName[64];
 	GetCurrentMap(curMapName, sizeof(curMapName));
 	
-	if (strncmp("vsh_", curMapName, 4, false) == 0 || strncmp("arena_", curMapName, 6, false) == 0)
+	if (strncmp("vsh_", curMapName, 4, false) == 0 || strncmp("arena_", curMapName, 6, false) == 0 || strncmp("zf_", curMapName, 3, false) == 0)
 	{
 		SetConVarBool(g_PluginActive, true);
 	}
@@ -74,29 +74,59 @@ public Action:Timer_WeaponCheck(Handle:timer, any:client)
 	if (client > 0 && client <= MaxClients && IsClientInGame(client)) 
 	{
 		new TFClassType:playerClass = TF2_GetPlayerClass(client);
-
-		switch (playerClass)
+		
+		
+		if (strncmp("vsh_", curMapName, 4, false) == 0 || strncmp("arena_", curMapName, 6, false) == 0)
 		{
-			case TFClass_Scout: 
+			switch (playerClass)
 			{
-				if (Weapon_IsBlocked(client, 0))
+				case TFClass_Scout: 
 				{
-					// If blocked, remove weapon slot (Primary) and give Scattergun instead.
-					TF2_RemoveWeaponSlot(client, 0);
-					TF2Items_GiveWeapon(client, 13);
+					if (Weapon_IsBlocked(client, 0))
+					{
+						// If blocked, remove weapon slot (Primary) and give Scattergun instead.
+						TF2_RemoveWeaponSlot(client, 0);
+						TF2Items_GiveWeapon(client, 13);
+					}
 				}
-			}
 
-			case TFClass_Engineer:
-			{
-				if (Weapon_IsBlocked(client, 1))
+				case TFClass_Engineer:
 				{
-					// If blocked, remove weapon slot (Secondary) and give Pistol instead.
-					TF2_RemoveWeaponSlot(client, 1);
-					TF2Items_GiveWeapon(client, 22);
+					if (Weapon_IsBlocked(client, 1))
+					{
+						// If blocked, remove weapon slot (Secondary) and give Pistol instead.
+						TF2_RemoveWeaponSlot(client, 1);
+						TF2Items_GiveWeapon(client, 22);
+					}
 				}
 			}
 		}
+		else if (strncmp("zf_", curMapName, 3, false) == 0)
+		{
+			switch (playerClass)
+			{
+				case TFClass_Soldier: 
+				{
+					if (Weapon_IsBlocked(client, 0))
+					{
+						// If blocked, remove weapon slot (Primary) and give Rocket Launcher instead.
+						TF2_RemoveWeaponSlot(client, 0);
+						TF2Items_GiveWeapon(client, 18);
+					}
+				}
+
+				case TFClass_Demoman:
+				{
+					if (Weapon_IsBlocked(client, 2))
+					{
+						// If blocked, remove weapon slot (Melee) and give Bottle instead.
+						TF2_RemoveWeaponSlot(client, 2);
+						TF2Items_GiveWeapon(client, 1);
+					}
+				}
+			}
+		}
+		
 	}
 }
 
@@ -109,7 +139,7 @@ stock bool:Weapon_IsBlocked(client, slot)
 	{
 		switch (GetEntProp(currentWeapon, Prop_Send, "m_iItemDefinitionIndex"))
 		{
-			case 528, 772: return true;
+			case 357, 228, 528, 772: return true;
 		}
 	}
 
