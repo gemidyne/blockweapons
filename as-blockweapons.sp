@@ -16,7 +16,7 @@ public Plugin:myinfo =
 	name = "Block Weapons",
 	author = "Anarchy Steven, Mario6493",
 	description = "Blocks weapons. Duh.",
-	version = "1.1",
+	version = "1.2",
 	url = "www.steveh.org.uk"
 }
 
@@ -87,6 +87,7 @@ public Action:Timer_WeaponCheck(Handle:timer, any:client)
 						// If blocked, remove weapon slot (Primary) and give Scattergun instead.
 						TF2_RemoveWeaponSlot(client, 0);
 						TF2Items_GiveWeapon(client, 13);
+						PrintToChat(client, "The Baby Face's Blaster is disabled in this gamemode.");
 					}
 				}
 
@@ -97,6 +98,7 @@ public Action:Timer_WeaponCheck(Handle:timer, any:client)
 						// If blocked, remove weapon slot (Secondary) and give Pistol instead.
 						TF2_RemoveWeaponSlot(client, 1);
 						TF2Items_GiveWeapon(client, 22);
+						PrintToChat(client, "The Short Circuit is disabled in this gamemode.");
 					}
 				}
 			}
@@ -112,6 +114,14 @@ public Action:Timer_WeaponCheck(Handle:timer, any:client)
 						// If blocked, remove weapon slot (Primary) and give Rocket Launcher instead.
 						TF2_RemoveWeaponSlot(client, 0);
 						TF2Items_GiveWeapon(client, 18);
+						PrintToChat(client, "The Black Box is disabled in this gamemode.");
+					}
+					if (Weapon_IsBlocked(client, 2))
+					{
+						// If blocked, remove weapon slot (Melee) and give Shovel instead.
+						TF2_RemoveWeaponSlot(client, 2);
+						TF2Items_GiveWeapon(client, 6);
+						PrintToChat(client, "The Half-Zatoichi is disabled in this gamemode.");
 					}
 				}
 
@@ -122,6 +132,7 @@ public Action:Timer_WeaponCheck(Handle:timer, any:client)
 						// If blocked, remove weapon slot (Melee) and give Bottle instead.
 						TF2_RemoveWeaponSlot(client, 2);
 						TF2Items_GiveWeapon(client, 1);
+						PrintToChat(client, "The Half-Zatoichi is disabled in this gamemode.");
 					}
 				}
 			}
