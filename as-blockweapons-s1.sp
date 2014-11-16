@@ -1,5 +1,5 @@
 /* 
- * BlockWeapons plugin for StSv Community Servers
+ * BlockWeapons plugin for StSv Community Server #1
  * Copyright (C) 2013-14 Mario6493 & Anarchy Steven
  * 
  * This program is free software; you can redistribute it and/or modify
@@ -36,10 +36,10 @@ new String:curMapName[64];
 
 public Plugin:myinfo = 
 {
-	name = "Block Weapons",
+	name = "Block Weapons for Server #1",
 	author = "Anarchy Steven, Mario6493",
 	description = "Blocks weapons. Duh.",
-	version = "1.2a",
+	version = "1.0",
 	url = "http://www.stsv.tf/"
 }
 
@@ -54,7 +54,7 @@ public OnMapStart()
 {
 	GetCurrentMap(curMapName, sizeof(curMapName));
 	
-	if (strncmp("vsh_", curMapName, 4, false) == 0 || strncmp("arena_", curMapName, 6, false) == 0 || strncmp("zf_", curMapName, 3, false) == 0)
+	if (strncmp("arena_", curMapName, 6, false) == 0 || strncmp("zf_", curMapName, 3, false) == 0)
 	{
 		SetConVarBool(g_PluginActive, true);
 	}
@@ -99,29 +99,16 @@ public Action:Timer_WeaponCheck(Handle:timer, any:client)
 		
 		switch (playerClass)
 		{
-			case TFClass_Scout: 
+			case TFClass_Spy: 
 			{
-				if (strncmp("vsh_", curMapName, 4, false) == 0 || strncmp("arena_", curMapName, 6, false) == 0)
+				if (strncmp("arena_", curMapName, 6, false) == 0)
 				{
-					if (Weapon_IsBlocked(client, 0))
+					if (Weapon_IsBlocked(client, 4))
 					{
-						// If blocked, remove weapon slot (Primary) and give Scattergun instead.
-						TF2_RemoveWeaponSlot(client, 0);
-						TF2Items_GiveWeapon(client, 13);
-						PrintToChat(client, "The Baby Face's Blaster is disabled in this gamemode.");
-					}
-				}
-			}
-			case TFClass_Engineer:
-			{
-				if (strncmp("vsh_", curMapName, 4, false) == 0 || strncmp("arena_", curMapName, 6, false) == 0)
-				{
-					if (Weapon_IsBlocked(client, 1))
-					{
-						// If blocked, remove weapon slot (Secondary) and give Pistol instead.
-						TF2_RemoveWeaponSlot(client, 1);
-						TF2Items_GiveWeapon(client, 22);
-						PrintToChat(client, "The Short Circuit is disabled in this gamemode.");
+						// If blocked, remove weapon slot (PDA2) and give Invis Watch instead.
+						TF2_RemoveWeaponSlot(client, 4);
+						TF2Items_GiveWeapon(client, 30);
+						PrintToChat(client, "The Cloak and Dagger is disabled in this gamemode.");
 					}
 				}
 			}
@@ -172,7 +159,7 @@ stock bool:Weapon_IsBlocked(client, slot)
 	{
 		switch (GetEntProp(currentWeapon, Prop_Send, "m_iItemDefinitionIndex"))
 		{
-			case 357, 228, 528, 772: return true;
+			case  60, 357, 228: return true;
 		}
 	}
 
