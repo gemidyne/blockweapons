@@ -36,7 +36,7 @@ new String:curMapName[64];
 
 public Plugin:myinfo = 
 {
-	name = "Block Weapons for Server #1",
+	name = "Block Weapons",
 	author = "Anarchy Steven, Mario6493",
 	description = "Blocks weapons. Duh.",
 	version = "1.0",
