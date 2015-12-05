@@ -54,14 +54,7 @@ public OnMapStart()
 {
 	GetCurrentMap(curMapName, sizeof(curMapName));
 	
-	if (strncmp("arena_", curMapName, 6, false) == 0 || strncmp("vsh_", curMapName, 4, false) == 0)
-	{
-		SetConVarBool(g_PluginActive, true);
-	}
-	else
-	{
-		SetConVarBool(g_PluginActive, false);
-	}
+	SetConVarBool(g_PluginActive, (strncmp("arena_", curMapName, 6, false) == 0 || strncmp("vsh_", curMapName, 4, false) == 0));
 }
 
 public Event_PlayerSpawn(Handle:event,const String:name[],bool:dontBroadcast)
