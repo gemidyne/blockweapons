@@ -40,7 +40,7 @@ public Plugin:myinfo =
 	author = "Anarchy Steven, Mario6493",
 	description = "Blocks weapons. Duh.",
 	version = "1.0",
-	url = "http://www.stsv.tf/"
+	url = "http://www.gemini.software/"
 }
 
 public OnPluginStart()
